@@ -1,0 +1,18 @@
+name: "ALKiln: Automated docassemble tests"
+description: "Automatically test any docassemble interview in a any branch on your GitHub repository whenever you commit or push. See https://suffolklitlab.org/docassemble-AssemblyLine-documentation/docs/alkiln/setup/#types."
+
+runs:
+  using: "composite"
+  steps:
+    # Place the root directory in this branch
+    - uses: actions/checkout@v4
+    - name: "Set up node"
+      uses: actions/setup-node@v5
+      with:
+        node-version: "24.x"
+        package-manager-cache: false
+    - name: "Install"
+      shell: bash
+      run: |
+        npm install --ignore-scripts --min-release-age=7 -g "@suffolklitlab/alkiln@5.15.4"
+        npm rebuild -g puppeteer
