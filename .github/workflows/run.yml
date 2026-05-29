@@ -1,0 +1,22 @@
+name: Repro
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+
+  run_action:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [24.x]
+        
+    steps:
+      # Place the root directory in this branch to access
+      # relative paths to action files
+      - uses: actions/checkout@v4
+      - name: "Run the action"
+        uses: ./
+        
